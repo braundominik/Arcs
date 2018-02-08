@@ -5,34 +5,48 @@ Datum: 28.01.2018
 */
 
 namespace pixel {
-    export let spaceDown: boolean = false;
-    export let blockSpace: boolean = false;
-    window.addEventListener("keydown", function (_event) {
-        let space: KeyboardEvent= <KeyboardEvent>_event;
-        if(space.code == "Space" && blockSpace == false){
-            spaceDown = true;
-
-            console.log(_event);
-        }
-
-    });
-
-    window.addEventListener("keyup", function (_event) {
-        let space: KeyboardEvent= <KeyboardEvent>_event;
-        if(space.code == "Space"){
-            spaceDown = false;
-            blockSpace = true;
-            console.log(_event);
-        }
-    });
 
     window.addEventListener("load", init);
     export let crc: CanvasRenderingContext2D;
     export let canvas: HTMLCanvasElement;
-    export let tmpArc: templateArc = new templateArc();
-    export let mvArc: movingArc = new movingArc();
+    export let tmpArc: TemplateArc = new TemplateArc();
+    export let mvArc: MovingArc = new MovingArc();
+
+    export let spaceDown: boolean = false;
+    export let blockSpace: boolean = false;
+    export let newGame: boolean = false;
 
 
+    window.addEventListener("keydown", function (_event) {
+        let space: KeyboardEvent = <KeyboardEvent>_event;
+        if(!newGame) {
+            if (space.code == "Space" && blockSpace == false) {
+                spaceDown = true;
+            }
+        }
+    });
+
+    window.addEventListener("keyup", function (_event) {
+        let space: KeyboardEvent = <KeyboardEvent>_event;
+        if(!newGame) {
+            if (space.code == "Space") {
+                spaceDown = false;
+                blockSpace = true;
+                console.log(mvArc.progress);
+                console.log(tmpArc.size);
+            }
+        }
+
+        else{
+            if(newGame && space.code == "Space"){
+                tmpArc = new TemplateArc();
+                mvArc = new MovingArc();
+                spaceDown = false;
+                blockSpace = false;
+                newGame = false;
+            }
+        }
+    });
 
     function init(): void {
         canvas = document.createElement("canvas");
@@ -47,23 +61,33 @@ namespace pixel {
     function animate(): void {
         tmpArc.draw();
         if(spaceDown) {
-            mvArc.move();
+            mvArc.calc();
         }
-        mvArc.draw();
         if(blockSpace){
-            let accuracy:number;
+
+            //let accuracy:number;
             let accPercent: number;
 
-            accuracy = tmpArc.size - mvArc.progress;
-            accuracy = Math.sqrt(accuracy*accuracy);
+            //accuracy = (tmpArc.size - 0.5) - (mvArc.progress - 0.5);
+            //accuracy = Math.sqrt(accuracy*accuracy);
+            accPercent = (mvArc.progress - 0.5)/(tmpArc.size - 0.5);
+            accPercent = accPercent*100;
+            //accPercent = Math.sqrt(accPercent*accPercent);
 
-            accPercent = mvArc.progress/tmpArc.size;
-            accPercent = 100-(accPercent*100);
-            accPercent = Math.sqrt(accPercent*accPercent);
+            mvArc.draw(accPercent);
 
-            crc.fillStyle = "white"
-            crc.font = "30px Arial"
-            crc.fillText(accPercent.toFixed(2).toString() + " %", 200,200);
+            let text: string = accPercent.toFixed(2).toString() + " %";
+            let textLength: TextMetrics = crc.measureText(text);
+            let textPos: number = (canvas.width/2 - (textLength.width/2));
+            if(accPercent>95&&accPercent<105){
+                crc.fillStyle = "green";
+            }
+            else{
+                crc.fillStyle = "red";
+            }
+            crc.font = "30px Arial";
+            crc.fillText(text, textPos, canvas.height/2);
+            newGame = true;
         }
         setTimeout(animate, 20);
     }

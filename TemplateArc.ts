@@ -5,7 +5,7 @@ Datum: 28.01.2018
 */
 
 namespace pixel {
-    export class templateArc {
+    export class TemplateArc {
         size: number;
 
         constructor(){
@@ -13,7 +13,7 @@ namespace pixel {
         }
 
         draw(): void {
-            crc.fillStyle = "blue  ";
+            crc.fillStyle = "white";
             crc.fillRect(0, 0, canvas.width, canvas.height);
             crc.strokeStyle = "black";
             crc.lineWidth = 50;
