@@ -7,7 +7,7 @@ var pixel;
 (function (pixel) {
     var TemplateArc = /** @class */ (function () {
         function TemplateArc() {
-            this.size = pixel.getRndNumber(0.6, 2.5);
+            this.size = this.getRndNumber(0.6, 2.5);
         }
         TemplateArc.prototype.draw = function () {
             pixel.crc.fillStyle = "white";
@@ -17,6 +17,10 @@ var pixel;
             pixel.crc.beginPath();
             pixel.crc.arc(200, 200, 150, 0.5 * Math.PI, this.size * Math.PI);
             pixel.crc.stroke();
+        };
+        TemplateArc.prototype.getRndNumber = function (min, max) {
+            var x = Math.random() * (max - min) + min;
+            return x;
         };
         return TemplateArc;
     }());

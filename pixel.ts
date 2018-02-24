@@ -9,8 +9,8 @@ namespace pixel {
     window.addEventListener("load", init);
     export let crc: CanvasRenderingContext2D;
     export let canvas: HTMLCanvasElement;
-    export let tmpArc: TemplateArc = new TemplateArc();
-    export let mvArc: MovingArc = new MovingArc();
+    export let tmpArc: TemplateArc;
+    export let mvArc: MovingArc;
 
     export let spaceDown: boolean = false;
     export let blockSpace: boolean = false;
@@ -54,11 +54,15 @@ namespace pixel {
         canvas.width = 400;
         document.body.prepend(canvas);
         crc = canvas.getContext("2d");
+
+        tmpArc = new TemplateArc();
+        mvArc = new MovingArc();
+
         animate();
 
     }
 
-    function animate(): void {
+    export function animate(): void {
         tmpArc.draw();
         if(spaceDown) {
             mvArc.calc();
@@ -74,7 +78,7 @@ namespace pixel {
             accPercent = accPercent*100;
             //accPercent = Math.sqrt(accPercent*accPercent);
 
-            mvArc.draw(accPercent);
+            mvArc.animateDraw(accPercent);
 
             let text: string = accPercent.toFixed(2).toString() + " %";
             let textLength: TextMetrics = crc.measureText(text);
@@ -89,8 +93,10 @@ namespace pixel {
             crc.fillText(text, textPos, canvas.height/2);
             newGame = true;
         }
-        setTimeout(animate, 20);
+
+        setTimeout(animate, 10);
     }
+
 
 
 }

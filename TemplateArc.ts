@@ -9,7 +9,7 @@ namespace pixel {
         size: number;
 
         constructor(){
-            this.size = getRndNumber(0.6, 2.5);
+            this.size = this.getRndNumber(0.6, 2.5);
         }
 
         draw(): void {
@@ -22,6 +22,13 @@ namespace pixel {
             crc.stroke();
 
         }
+
+        getRndNumber(min: number, max: number): number {
+            let x: number = Math.random() * (max - min) + min;
+            return x;
+
+        }
+
     }
 
 

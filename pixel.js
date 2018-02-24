@@ -6,8 +6,6 @@ Datum: 28.01.2018
 var pixel;
 (function (pixel) {
     window.addEventListener("load", init);
-    pixel.tmpArc = new pixel.TemplateArc();
-    pixel.mvArc = new pixel.MovingArc();
     pixel.spaceDown = false;
     pixel.blockSpace = false;
     pixel.newGame = false;
@@ -45,6 +43,8 @@ var pixel;
         pixel.canvas.width = 400;
         document.body.prepend(pixel.canvas);
         pixel.crc = pixel.canvas.getContext("2d");
+        pixel.tmpArc = new pixel.TemplateArc();
+        pixel.mvArc = new pixel.MovingArc();
         animate();
     }
     function animate() {
@@ -60,7 +60,7 @@ var pixel;
             accPercent = (pixel.mvArc.progress - 0.5) / (pixel.tmpArc.size - 0.5);
             accPercent = accPercent * 100;
             //accPercent = Math.sqrt(accPercent*accPercent);
-            pixel.mvArc.draw(accPercent);
+            pixel.mvArc.animateDraw(accPercent);
             var text = accPercent.toFixed(2).toString() + " %";
             var textLength = pixel.crc.measureText(text);
             var textPos = (pixel.canvas.width / 2 - (textLength.width / 2));
@@ -74,6 +74,7 @@ var pixel;
             pixel.crc.fillText(text, textPos, pixel.canvas.height / 2);
             pixel.newGame = true;
         }
-        setTimeout(animate, 20);
+        setTimeout(animate, 10);
     }
+    pixel.animate = animate;
 })(pixel || (pixel = {}));
