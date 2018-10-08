@@ -22,7 +22,7 @@ var pixel;
             }
             pixel.crc.lineWidth = 30;
             pixel.crc.beginPath();
-            pixel.crc.arc(200, 200, 150, 0.5 * Math.PI, this.progress * Math.PI);
+            pixel.crc.arc(document.body.clientWidth / 2, document.body.clientHeight / 2, document.body.clientWidth / 2.5, 0.5 * Math.PI, this.progress * Math.PI);
             pixel.crc.stroke();
         }
         animateDraw(_percent) {
@@ -34,7 +34,7 @@ var pixel;
             }
             pixel.crc.lineWidth = 30;
             pixel.crc.beginPath();
-            pixel.crc.arc(200, 200, 150, 0.5 * Math.PI, this.animateProgress * Math.PI);
+            pixel.crc.arc(document.body.clientWidth / 2, document.body.clientHeight / 2, document.body.clientWidth / 2.5, 0.5 * Math.PI, this.animateProgress * Math.PI);
             pixel.crc.stroke();
             if (this.animateProgress <= this.progress) {
                 this.animateProgress = this.animateProgress + 0.01;

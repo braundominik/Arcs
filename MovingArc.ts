@@ -28,7 +28,7 @@ namespace pixel {
             }
             crc.lineWidth = 30;
             crc.beginPath();
-            crc.arc(200, 200, 150, 0.5 * Math.PI, this.progress * Math.PI);
+            crc.arc(document.body.clientWidth/2, document.body.clientHeight/2, document.body.clientWidth/2.5, 0.5 * Math.PI, this.progress * Math.PI);
             crc.stroke();
 
         }
@@ -42,7 +42,7 @@ namespace pixel {
             }
             crc.lineWidth = 30;
             crc.beginPath();
-            crc.arc(200, 200, 150, 0.5 * Math.PI, this.animateProgress * Math.PI);
+            crc.arc(document.body.clientWidth/2, document.body.clientHeight/2, document.body.clientWidth/2.5, 0.5 * Math.PI, this.animateProgress * Math.PI);
             crc.stroke();
 
 

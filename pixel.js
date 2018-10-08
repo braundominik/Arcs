@@ -37,8 +37,8 @@ var pixel;
     });
     function init() {
         pixel.canvas = document.createElement("canvas");
-        pixel.canvas.height = 400;
-        pixel.canvas.width = 400;
+        pixel.canvas.height = document.body.clientHeight;
+        pixel.canvas.width = document.body.clientWidth;
         document.body.appendChild(pixel.canvas);
         pixel.crc = pixel.canvas.getContext("2d");
         pixel.tmpArc = new pixel.TemplateArc();
@@ -59,17 +59,18 @@ var pixel;
             accPercent = accPercent * 100;
             //accPercent = Math.sqrt(accPercent*accPercent);
             pixel.mvArc.animateDraw(accPercent);
-            let text = accPercent.toFixed(2).toString() + " %";
+            let text = accPercent.toFixed(2).toString() + "%";
+            pixel.crc.font = "100px Arial";
             let textLength = pixel.crc.measureText(text);
-            let textPos = (pixel.canvas.width / 2 - (textLength.width / 2));
+            let textPos = ((pixel.canvas.width / 2) - (textLength.width / 2));
             if (accPercent > 95 && accPercent < 105) {
                 pixel.crc.fillStyle = "green";
             }
             else {
                 pixel.crc.fillStyle = "red";
             }
-            pixel.crc.font = "30px Arial";
-            pixel.crc.fillText(text, textPos, pixel.canvas.height / 2);
+            pixel.crc.font = "100px Arial";
+            pixel.crc.fillText(text, textPos, (pixel.canvas.height / 2) + 25);
             pixel.newGame = true;
         }
         setTimeout(animate, 10);

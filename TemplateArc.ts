@@ -13,12 +13,12 @@ namespace pixel {
         }
 
         draw(): void {
-            crc.fillStyle = "white";
+            crc.fillStyle = "black";
             crc.fillRect(0, 0, canvas.width, canvas.height);
-            crc.strokeStyle = "black";
+            crc.strokeStyle = "white";
             crc.lineWidth = 50;
             crc.beginPath();
-            crc.arc(200, 200, 150, 0.5 * Math.PI, this.size * Math.PI);
+            crc.arc(document.body.clientWidth/2, document.body.clientHeight/2, document.body.clientWidth/2.5, 0.5 * Math.PI, this.size * Math.PI);
             crc.stroke();
 
         }

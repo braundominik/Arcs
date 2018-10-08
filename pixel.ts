@@ -48,8 +48,8 @@ namespace pixel {
 
     function init(): void {
         canvas = document.createElement("canvas");
-        canvas.height = 400;
-        canvas.width = 400;
+        canvas.height = document.body.clientHeight;
+        canvas.width = document.body.clientWidth;
         document.body.appendChild(canvas);
         crc = canvas.getContext("2d");
 
@@ -78,17 +78,20 @@ namespace pixel {
 
             mvArc.animateDraw(accPercent);
 
-            let text: string = accPercent.toFixed(2).toString() + " %";
+            let text: string = accPercent.toFixed(2).toString()+"%";
+
+            crc.font = "100px Arial";
             let textLength: TextMetrics = crc.measureText(text);
-            let textPos: number = (canvas.width/2 - (textLength.width/2));
+            let textPos: number = ((canvas.width/2) - (textLength.width/2));
+
             if(accPercent>95&&accPercent<105){
                 crc.fillStyle = "green";
             }
             else{
                 crc.fillStyle = "red";
             }
-            crc.font = "30px Arial";
-            crc.fillText(text, textPos, canvas.height/2);
+            crc.font = "100px Arial";
+            crc.fillText(text, textPos, (canvas.height/2)+25);
             newGame = true;
         }
 
