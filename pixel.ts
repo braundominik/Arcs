@@ -80,7 +80,7 @@ namespace pixel {
 
             let text: string = accPercent.toFixed(2).toString()+"%";
 
-            crc.font = "100px Arial";
+            crc.font = "10vw Arial";
             let textLength: TextMetrics = crc.measureText(text);
             let textPos: number = ((canvas.width/2) - (textLength.width/2));
 
@@ -90,8 +90,8 @@ namespace pixel {
             else{
                 crc.fillStyle = "red";
             }
-            crc.font = "100px Arial";
-            crc.fillText(text, textPos, (canvas.height/2)+25);
+            crc.font = "10vw Arial";
+            crc.fillText(text, textPos, (canvas.height/2)+(canvas.width*0.05));
             newGame = true;
         }
 

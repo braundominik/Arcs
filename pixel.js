@@ -60,7 +60,7 @@ var pixel;
             //accPercent = Math.sqrt(accPercent*accPercent);
             pixel.mvArc.animateDraw(accPercent);
             let text = accPercent.toFixed(2).toString() + "%";
-            pixel.crc.font = "100px Arial";
+            pixel.crc.font = "10vw Arial";
             let textLength = pixel.crc.measureText(text);
             let textPos = ((pixel.canvas.width / 2) - (textLength.width / 2));
             if (accPercent > 95 && accPercent < 105) {
@@ -69,8 +69,8 @@ var pixel;
             else {
                 pixel.crc.fillStyle = "red";
             }
-            pixel.crc.font = "100px Arial";
-            pixel.crc.fillText(text, textPos, (pixel.canvas.height / 2) + 25);
+            pixel.crc.font = "10vw Arial";
+            pixel.crc.fillText(text, textPos, (pixel.canvas.height / 2) + (pixel.canvas.width * 0.05));
             pixel.newGame = true;
         }
         setTimeout(animate, 10);
