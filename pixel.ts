@@ -16,6 +16,9 @@ namespace pixel {
     export let blockSpace: boolean = false;
     export let newGame: boolean = false;
 
+    export let greenValue: number;
+    export let redValue: number;
+
 
     window.addEventListener("touchstart", function (_event) {
         let space: TouchEvent = <TouchEvent>_event;
