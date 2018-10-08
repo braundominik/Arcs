@@ -10,7 +10,7 @@ var pixel;
     pixel.blockSpace = false;
     pixel.newGame = false;
     window.addEventListener("keydown", function (_event) {
-        var space = _event;
+        let space = _event;
         if (!pixel.newGame) {
             if (space.code == "Space" && pixel.blockSpace == false) {
                 pixel.spaceDown = true;
@@ -18,7 +18,7 @@ var pixel;
         }
     });
     window.addEventListener("keyup", function (_event) {
-        var space = _event;
+        let space = _event;
         if (!pixel.newGame) {
             if (space.code == "Space") {
                 pixel.spaceDown = false;
@@ -41,7 +41,7 @@ var pixel;
         pixel.canvas = document.createElement("canvas");
         pixel.canvas.height = 400;
         pixel.canvas.width = 400;
-        document.body.prepend(pixel.canvas);
+        document.body.appendChild(pixel.canvas);
         pixel.crc = pixel.canvas.getContext("2d");
         pixel.tmpArc = new pixel.TemplateArc();
         pixel.mvArc = new pixel.MovingArc();
@@ -54,16 +54,16 @@ var pixel;
         }
         if (pixel.blockSpace) {
             //let accuracy:number;
-            var accPercent = void 0;
+            let accPercent;
             //accuracy = (tmpArc.size - 0.5) - (mvArc.progress - 0.5);
             //accuracy = Math.sqrt(accuracy*accuracy);
             accPercent = (pixel.mvArc.progress - 0.5) / (pixel.tmpArc.size - 0.5);
             accPercent = accPercent * 100;
             //accPercent = Math.sqrt(accPercent*accPercent);
             pixel.mvArc.animateDraw(accPercent);
-            var text = accPercent.toFixed(2).toString() + " %";
-            var textLength = pixel.crc.measureText(text);
-            var textPos = (pixel.canvas.width / 2 - (textLength.width / 2));
+            let text = accPercent.toFixed(2).toString() + " %";
+            let textLength = pixel.crc.measureText(text);
+            let textPos = (pixel.canvas.width / 2 - (textLength.width / 2));
             if (accPercent > 95 && accPercent < 105) {
                 pixel.crc.fillStyle = "green";
             }
@@ -78,3 +78,4 @@ var pixel;
     }
     pixel.animate = animate;
 })(pixel || (pixel = {}));
+//# sourceMappingURL=pixel.js.map

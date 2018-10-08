@@ -52,7 +52,7 @@ namespace pixel {
         canvas = document.createElement("canvas");
         canvas.height = 400;
         canvas.width = 400;
-        document.body.prepend(canvas);
+        document.body.appendChild(canvas);
         crc = canvas.getContext("2d");
 
         tmpArc = new TemplateArc();

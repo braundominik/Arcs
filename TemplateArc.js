@@ -5,11 +5,11 @@ Datum: 28.01.2018
 */
 var pixel;
 (function (pixel) {
-    var TemplateArc = /** @class */ (function () {
-        function TemplateArc() {
+    class TemplateArc {
+        constructor() {
             this.size = this.getRndNumber(0.6, 2.5);
         }
-        TemplateArc.prototype.draw = function () {
+        draw() {
             pixel.crc.fillStyle = "white";
             pixel.crc.fillRect(0, 0, pixel.canvas.width, pixel.canvas.height);
             pixel.crc.strokeStyle = "black";
@@ -17,12 +17,12 @@ var pixel;
             pixel.crc.beginPath();
             pixel.crc.arc(200, 200, 150, 0.5 * Math.PI, this.size * Math.PI);
             pixel.crc.stroke();
-        };
-        TemplateArc.prototype.getRndNumber = function (min, max) {
-            var x = Math.random() * (max - min) + min;
+        }
+        getRndNumber(min, max) {
+            let x = Math.random() * (max - min) + min;
             return x;
-        };
-        return TemplateArc;
-    }());
+        }
+    }
     pixel.TemplateArc = TemplateArc;
 })(pixel || (pixel = {}));
+//# sourceMappingURL=TemplateArc.js.map
