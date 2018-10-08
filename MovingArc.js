@@ -56,7 +56,7 @@ var pixel;
             //      console.log(redValue);
             //  }
             //  }
-            pixel.crc.strokeStyle = "rgba(" + pixel.redValue + ",73,11,1)";
+            pixel.crc.strokeStyle = "rgba(" + pixel.redValue + ",175,72,1)";
             pixel.crc.lineWidth = 30;
             pixel.crc.beginPath();
             pixel.crc.arc(document.body.clientWidth / 2, document.body.clientHeight / 2, document.body.clientWidth / 2.5, 0.5 * Math.PI, this.animateProgress * Math.PI);

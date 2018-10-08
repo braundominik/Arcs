@@ -73,7 +73,7 @@ namespace pixel {
               //  }
           //  }
 
-            crc.strokeStyle = "rgba("+redValue+",73,11,1)";
+            crc.strokeStyle = "rgba("+redValue+",175,72,1)";
             crc.lineWidth = 30;
             crc.beginPath();
             crc.arc(document.body.clientWidth/2, document.body.clientHeight/2, document.body.clientWidth/2.5, 0.5 * Math.PI, this.animateProgress * Math.PI);
