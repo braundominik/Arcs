@@ -17,28 +17,26 @@ namespace pixel {
     export let newGame: boolean = false;
 
 
-    window.addEventListener("keydown", function (_event) {
-        let space: KeyboardEvent = <KeyboardEvent>_event;
+    window.addEventListener("touchstart", function (_event) {
+        let space: TouchEvent = <TouchEvent>_event;
         if(!newGame) {
-            if (space.code == "Space" && blockSpace == false) {
+            if (blockSpace == false) {
                 spaceDown = true;
             }
         }
     });
 
-    window.addEventListener("keyup", function (_event) {
-        let space: KeyboardEvent = <KeyboardEvent>_event;
+    window.addEventListener("touchend", function (_event) {
+        let space: TouchEvent = <TouchEvent>_event;
         if(!newGame) {
-            if (space.code == "Space") {
                 spaceDown = false;
                 blockSpace = true;
                 console.log(mvArc.progress);
                 console.log(tmpArc.size);
-            }
         }
 
         else{
-            if(newGame && space.code == "Space"){
+            if(newGame){
                 tmpArc = new TemplateArc();
                 mvArc = new MovingArc();
                 spaceDown = false;

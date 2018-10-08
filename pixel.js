@@ -9,26 +9,24 @@ var pixel;
     pixel.spaceDown = false;
     pixel.blockSpace = false;
     pixel.newGame = false;
-    window.addEventListener("keydown", function (_event) {
+    window.addEventListener("touchstart", function (_event) {
         let space = _event;
         if (!pixel.newGame) {
-            if (space.code == "Space" && pixel.blockSpace == false) {
+            if (pixel.blockSpace == false) {
                 pixel.spaceDown = true;
             }
         }
     });
-    window.addEventListener("keyup", function (_event) {
+    window.addEventListener("touchend", function (_event) {
         let space = _event;
         if (!pixel.newGame) {
-            if (space.code == "Space") {
-                pixel.spaceDown = false;
-                pixel.blockSpace = true;
-                console.log(pixel.mvArc.progress);
-                console.log(pixel.tmpArc.size);
-            }
+            pixel.spaceDown = false;
+            pixel.blockSpace = true;
+            console.log(pixel.mvArc.progress);
+            console.log(pixel.tmpArc.size);
         }
         else {
-            if (pixel.newGame && space.code == "Space") {
+            if (pixel.newGame) {
                 pixel.tmpArc = new pixel.TemplateArc();
                 pixel.mvArc = new pixel.MovingArc();
                 pixel.spaceDown = false;
