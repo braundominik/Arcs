@@ -24,6 +24,7 @@ namespace pixel {
         if(!newGame) {
             if (blockSpace == false) {
                 spaceDown = true;
+                animate();
             }
         }
     });
@@ -33,8 +34,8 @@ namespace pixel {
         if(!newGame) {
                 spaceDown = false;
                 blockSpace = true;
-                console.log(mvArc.progress);
-                console.log(tmpArc.size);
+                //console.log(mvArc.progress);
+                //console.log(tmpArc.size);
         }
 
         else{
@@ -67,13 +68,14 @@ namespace pixel {
         tmpArc.draw();
         if(spaceDown) {
             mvArc.calc();
+            setTimeout(animate, 5);
         }
         if(blockSpace){
 
             //let accuracy:number;
             let accPercent: number;
             let currentPercentage: number = ((mvArc.animateProgress-0.5)/(tmpArc.size-0.5));
-            console.log(currentPercentage);
+            //console.log(currentPercentage);
             //accuracy = (tmpArc.size - 0.5) - (mvArc.progress - 0.5);
             //accuracy = Math.sqrt(accuracy*accuracy);
             accPercent = (mvArc.progress - 0.5)/(tmpArc.size - 0.5);
@@ -97,9 +99,13 @@ namespace pixel {
             crc.font = "10vw Arial";
             crc.fillText(text, textPos, (canvas.height/2)+(canvas.width*0.05));
             newGame = true;
-        }
 
-        setTimeout(animate, 5);
+            if (mvArc.animateProgress <= mvArc.progress) {
+                setTimeout(animate, 5);
+            }
+            //setTimeout(animate, 5);
+        }
+        console.log("in Process");
     }
 
 

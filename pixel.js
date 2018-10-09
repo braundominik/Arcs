@@ -14,6 +14,7 @@ var pixel;
         if (!pixel.newGame) {
             if (pixel.blockSpace == false) {
                 pixel.spaceDown = true;
+                animate();
             }
         }
     });
@@ -22,8 +23,8 @@ var pixel;
         if (!pixel.newGame) {
             pixel.spaceDown = false;
             pixel.blockSpace = true;
-            console.log(pixel.mvArc.progress);
-            console.log(pixel.tmpArc.size);
+            //console.log(mvArc.progress);
+            //console.log(tmpArc.size);
         }
         else {
             if (pixel.newGame) {
@@ -50,12 +51,13 @@ var pixel;
         pixel.tmpArc.draw();
         if (pixel.spaceDown) {
             pixel.mvArc.calc();
+            setTimeout(animate, 5);
         }
         if (pixel.blockSpace) {
             //let accuracy:number;
             let accPercent;
             let currentPercentage = ((pixel.mvArc.animateProgress - 0.5) / (pixel.tmpArc.size - 0.5));
-            console.log(currentPercentage);
+            //console.log(currentPercentage);
             //accuracy = (tmpArc.size - 0.5) - (mvArc.progress - 0.5);
             //accuracy = Math.sqrt(accuracy*accuracy);
             accPercent = (pixel.mvArc.progress - 0.5) / (pixel.tmpArc.size - 0.5);
@@ -75,8 +77,12 @@ var pixel;
             pixel.crc.font = "10vw Arial";
             pixel.crc.fillText(text, textPos, (pixel.canvas.height / 2) + (pixel.canvas.width * 0.05));
             pixel.newGame = true;
+            if (pixel.mvArc.animateProgress <= pixel.mvArc.progress) {
+                setTimeout(animate, 5);
+            }
+            //setTimeout(animate, 5);
         }
-        setTimeout(animate, 5);
+        console.log("in Process");
     }
     pixel.animate = animate;
 })(pixel || (pixel = {}));
