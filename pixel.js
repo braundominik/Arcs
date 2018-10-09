@@ -33,6 +33,7 @@ var pixel;
                 pixel.spaceDown = false;
                 pixel.blockSpace = false;
                 pixel.newGame = false;
+                animate();
             }
         }
     });

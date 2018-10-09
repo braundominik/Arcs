@@ -45,6 +45,7 @@ namespace pixel {
                 spaceDown = false;
                 blockSpace = false;
                 newGame = false;
+                animate();
             }
         }
     });
