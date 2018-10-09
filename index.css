@@ -1,0 +1,10 @@
+#menubutton{
+    
+    position:absolute;
+    right: 0;
+}
+
+#canvasp{
+    margin-block-start:0;
+    margin-block-end:0;
+}

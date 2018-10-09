@@ -36,10 +36,11 @@ var pixel;
         }
     });
     function init() {
-        pixel.canvas = document.createElement("canvas");
+        pixel.canvas = document.getElementById("crc");
+        //canvas = document.createElement("canvas");
         pixel.canvas.height = document.body.clientHeight;
         pixel.canvas.width = document.body.clientWidth;
-        document.body.appendChild(pixel.canvas);
+        //document.body.appendChild(canvas);
         pixel.crc = pixel.canvas.getContext("2d");
         pixel.tmpArc = new pixel.TemplateArc();
         pixel.mvArc = new pixel.MovingArc();
@@ -53,27 +54,29 @@ var pixel;
         if (pixel.blockSpace) {
             //let accuracy:number;
             let accPercent;
+            let currentPercentage = ((pixel.mvArc.animateProgress - 0.5) / (pixel.tmpArc.size - 0.5));
+            console.log(currentPercentage);
             //accuracy = (tmpArc.size - 0.5) - (mvArc.progress - 0.5);
             //accuracy = Math.sqrt(accuracy*accuracy);
             accPercent = (pixel.mvArc.progress - 0.5) / (pixel.tmpArc.size - 0.5);
             accPercent = accPercent * 100;
             //accPercent = Math.sqrt(accPercent*accPercent);
             pixel.mvArc.animateDraw(accPercent);
-            let text = accPercent.toFixed(2).toString() + "%";
+            let text = (currentPercentage * 100).toFixed(2).toString() + "%";
             pixel.crc.font = "10vw Arial";
             let textLength = pixel.crc.measureText(text);
             let textPos = ((pixel.canvas.width / 2) - (textLength.width / 2));
-            if (accPercent > 95 && accPercent < 105) {
-                pixel.crc.fillStyle = "green";
+            if (currentPercentage > 0.95 && currentPercentage < 1.05) {
+                pixel.crc.fillStyle = "#27ae60";
             }
             else {
-                pixel.crc.fillStyle = "red";
+                pixel.crc.fillStyle = "#e74c3c";
             }
             pixel.crc.font = "10vw Arial";
             pixel.crc.fillText(text, textPos, (pixel.canvas.height / 2) + (pixel.canvas.width * 0.05));
             pixel.newGame = true;
         }
-        setTimeout(animate, 10);
+        setTimeout(animate, 5);
     }
     pixel.animate = animate;
 })(pixel || (pixel = {}));

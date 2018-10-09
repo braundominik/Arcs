@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 <html lang="en" style="background-color:black">
 <head>
-	<meta charset="UTF-8">
-	<title>ARCS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="jquery.mobile.custom.structure.css">
+    <link rel="stylesheet" href="index.css">
+
+
     <script src="common.js"></script>
     <script src="TemplateArc.js"></script>
     <script src="MovingArc.js"></script>
     <script src="pixel.js"></script>
+
+    <script src="jquery.js"></script>
+    <script src="jquery.mobile.custom.js"></script>
+
 </head>
 
 <body style="height:99vh; background-color:black">
 
+     <!-- Start of first page -->
+     <div data-role="page" id="foo">
+        <a id="menubutton" href="#bar"><button>Menu</button></a>
+        <p id="canvasp"><canvas width="100" height="100" id="crc"></p>
+
+    </div><!-- /page -->
+
+    <!-- Start of second page -->
+    <div data-role="page" id="bar">
+        <p><a href="#foo">Back to foo</a></p>
+    </div><!-- /page -->
 
 </body>
 

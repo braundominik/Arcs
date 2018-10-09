@@ -5,7 +5,6 @@ Datum: 28.01.2018
 */
 
 namespace pixel {
-
     window.addEventListener("load", init);
     export let crc: CanvasRenderingContext2D;
     export let canvas: HTMLCanvasElement;
@@ -50,10 +49,11 @@ namespace pixel {
     });
 
     function init(): void {
-        canvas = document.createElement("canvas");
+        canvas = <HTMLCanvasElement>document.getElementById("crc");
+        //canvas = document.createElement("canvas");
         canvas.height = document.body.clientHeight;
         canvas.width = document.body.clientWidth;
-        document.body.appendChild(canvas);
+        //document.body.appendChild(canvas);
         crc = canvas.getContext("2d");
 
         tmpArc = new TemplateArc();
@@ -72,7 +72,8 @@ namespace pixel {
 
             //let accuracy:number;
             let accPercent: number;
-
+            let currentPercentage: number = ((mvArc.animateProgress-0.5)/(tmpArc.size-0.5));
+            console.log(currentPercentage);
             //accuracy = (tmpArc.size - 0.5) - (mvArc.progress - 0.5);
             //accuracy = Math.sqrt(accuracy*accuracy);
             accPercent = (mvArc.progress - 0.5)/(tmpArc.size - 0.5);
@@ -81,24 +82,24 @@ namespace pixel {
 
             mvArc.animateDraw(accPercent);
 
-            let text: string = accPercent.toFixed(2).toString()+"%";
+            let text: string = (currentPercentage*100).toFixed(2).toString()+"%";
 
             crc.font = "10vw Arial";
             let textLength: TextMetrics = crc.measureText(text);
             let textPos: number = ((canvas.width/2) - (textLength.width/2));
 
-            if(accPercent>95&&accPercent<105){
-                crc.fillStyle = "green";
+            if(currentPercentage>0.95&&currentPercentage<1.05){
+                crc.fillStyle = "#27ae60";
             }
             else{
-                crc.fillStyle = "red";
+                crc.fillStyle = "#e74c3c";
             }
             crc.font = "10vw Arial";
             crc.fillText(text, textPos, (canvas.height/2)+(canvas.width*0.05));
             newGame = true;
         }
 
-        setTimeout(animate, 10);
+        setTimeout(animate, 5);
     }
 
 
