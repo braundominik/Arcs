@@ -11,6 +11,11 @@ var pixel;
     pixel.newGame = false;
     window.addEventListener("touchstart", function (_event) {
         let space = _event;
+        let touchX = space.touches[0].clientX;
+        let touchY = space.touches[0].clientY;
+        document.getElementById("circle").style.top = (touchY - 25).toString() + "px";
+        document.getElementById("circle").style.left = (touchX - 25).toString() + "px";
+        document.getElementById("circle").style.display = "block";
         if (!pixel.newGame) {
             if (pixel.blockSpace == false) {
                 pixel.spaceDown = true;
@@ -19,6 +24,7 @@ var pixel;
         }
     });
     window.addEventListener("touchend", function (_event) {
+        document.getElementById("circle").style.display = "none";
         let space = _event;
         if (!pixel.newGame) {
             pixel.spaceDown = false;
