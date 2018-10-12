@@ -23,8 +23,8 @@ namespace pixel {
         let space: TouchEvent = <TouchEvent>_event;
         let touchX = space.touches[0].clientX;
         let touchY = space.touches[0].clientY;
-        document.getElementById("circle").style.top = (touchY-25).toString()+"px";
-        document.getElementById("circle").style.left = (touchX-25).toString()+"px";
+        document.getElementById("circle").style.top = (touchY-50).toString()+"px";
+        document.getElementById("circle").style.left = (touchX-50).toString()+"px";
         document.getElementById("circle").style.display = "block";
         if(!newGame) {
             if (blockSpace == false) {
