@@ -14,6 +14,7 @@ var pixel;
     let speicherTest = window.localStorage.key(0);
     function speichern() {
         speicherwert++;
+        window.localStorage.setItem(speicherTest, speicherwert.toString());
         document.getElementById("savecounter").textContent = speicherwert.toString();
         console.log("gespeichert");
     }
@@ -52,6 +53,8 @@ var pixel;
         }
     });
     function init() {
+        speicherwert = Number(window.localStorage.getItem(speicherTest));
+        document.getElementById("savecounter").textContent = speicherwert.toString();
         document.getElementById("speicher").addEventListener("click", speichern);
         pixel.canvas = document.getElementById("crc");
         //canvas = document.createElement("canvas");

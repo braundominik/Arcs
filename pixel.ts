@@ -24,6 +24,7 @@ namespace pixel {
 
     function speichern():void {
         speicherwert++;
+        window.localStorage.setItem(speicherTest,speicherwert.toString());
         document.getElementById("savecounter").textContent = speicherwert.toString();
         console.log("gespeichert");
     }
@@ -67,6 +68,8 @@ namespace pixel {
     });
 
     function init(): void {
+        speicherwert = Number(window.localStorage.getItem(speicherTest));
+        document.getElementById("savecounter").textContent = speicherwert.toString();
         document.getElementById("speicher").addEventListener("click", speichern);
         canvas = <HTMLCanvasElement>document.getElementById("crc");
         //canvas = document.createElement("canvas");
