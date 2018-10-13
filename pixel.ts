@@ -1,7 +1,7 @@
 /*
-PIXEL
+ARCS
 Name: Braun Dominik
-Datum: 28.01.2018
+Datum: 13.10.2018
 */
 
 namespace pixel {
@@ -18,14 +18,14 @@ namespace pixel {
     export let greenValue: number;
     export let redValue: number;
 
-    let speicherwert: number = 1;
+    let scoreContent;
+
+    let scoreValue: number = 0;
     let storage = window.localStorage;
-    let speicherTest = window.localStorage.key(0);
+    let scoreStore = window.localStorage.key(0);
 
     function speichern():void {
-        speicherwert++;
-        window.localStorage.setItem(speicherTest,speicherwert.toString());
-        document.getElementById("savecounter").textContent = speicherwert.toString();
+        window.localStorage.setItem(scoreStore,scoreValue.toString());
         console.log("gespeichert");
     }
 
@@ -68,9 +68,15 @@ namespace pixel {
     });
 
     function init(): void {
-        speicherwert = Number(window.localStorage.getItem(speicherTest));
-        document.getElementById("savecounter").textContent = speicherwert.toString();
+
+        scoreContent = document.getElementById("score");
+        scoreValue = Number(window.localStorage.getItem(scoreStore));
+        document.getElementById("score").textContent = "Score: "+scoreValue.toString();
         document.getElementById("speicher").addEventListener("click", speichern);
+
+        document.getElementById("circle").style.top = (document.body.clientHeight/2-50).toString()+"px";
+        document.getElementById("circle").style.left = (document.body.clientWidth/2-50).toString()+"px";
+        
         canvas = <HTMLCanvasElement>document.getElementById("crc");
         //canvas = document.createElement("canvas");
         canvas.height = document.body.clientHeight;
@@ -124,7 +130,13 @@ namespace pixel {
             if (mvArc.animateProgress <= mvArc.progress) {
                 setTimeout(animate, 5);
             }
-            //setTimeout(animate, 5);
+            else{
+                if (crc.fillStyle == "#27ae60"){
+                    scoreValue++;
+                    speichern();
+                    scoreContent.innerText = "Score:"+" "+scoreValue.toString();
+                }
+            }
         }
         console.log("in Process");
     }

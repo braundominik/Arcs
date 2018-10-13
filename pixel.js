@@ -1,7 +1,7 @@
 /*
-PIXEL
+ARCS
 Name: Braun Dominik
-Datum: 28.01.2018
+Datum: 13.10.2018
 */
 var pixel;
 (function (pixel) {
@@ -9,13 +9,12 @@ var pixel;
     pixel.spaceDown = false;
     pixel.blockSpace = false;
     pixel.newGame = false;
-    let speicherwert = 1;
+    let scoreContent;
+    let scoreValue = 0;
     let storage = window.localStorage;
-    let speicherTest = window.localStorage.key(0);
+    let scoreStore = window.localStorage.key(0);
     function speichern() {
-        speicherwert++;
-        window.localStorage.setItem(speicherTest, speicherwert.toString());
-        document.getElementById("savecounter").textContent = speicherwert.toString();
+        window.localStorage.setItem(scoreStore, scoreValue.toString());
         console.log("gespeichert");
     }
     let starttouch = window.addEventListener("touchstart", function (_event) {
@@ -53,9 +52,12 @@ var pixel;
         }
     });
     function init() {
-        speicherwert = Number(window.localStorage.getItem(speicherTest));
-        document.getElementById("savecounter").textContent = speicherwert.toString();
+        scoreContent = document.getElementById("score");
+        scoreValue = Number(window.localStorage.getItem(scoreStore));
+        document.getElementById("score").textContent = "Score: " + scoreValue.toString();
         document.getElementById("speicher").addEventListener("click", speichern);
+        document.getElementById("circle").style.top = (document.body.clientHeight / 2 - 50).toString() + "px";
+        document.getElementById("circle").style.left = (document.body.clientWidth / 2 - 50).toString() + "px";
         pixel.canvas = document.getElementById("crc");
         //canvas = document.createElement("canvas");
         pixel.canvas.height = document.body.clientHeight;
@@ -99,7 +101,13 @@ var pixel;
             if (pixel.mvArc.animateProgress <= pixel.mvArc.progress) {
                 setTimeout(animate, 5);
             }
-            //setTimeout(animate, 5);
+            else {
+                if (pixel.crc.fillStyle == "#27ae60") {
+                    scoreValue++;
+                    speichern();
+                    scoreContent.innerText = "Score:" + " " + scoreValue.toString();
+                }
+            }
         }
         console.log("in Process");
     }
