@@ -9,7 +9,15 @@ var pixel;
     pixel.spaceDown = false;
     pixel.blockSpace = false;
     pixel.newGame = false;
-    window.addEventListener("touchstart", function (_event) {
+    let speicherwert = 1;
+    let storage = window.localStorage;
+    let speicherTest = window.localStorage.key(0);
+    function speichern() {
+        speicherwert++;
+        document.getElementById("savecounter").textContent = speicherwert.toString();
+        console.log("gespeichert");
+    }
+    let starttouch = window.addEventListener("touchstart", function (_event) {
         let space = _event;
         let touchX = space.touches[0].clientX;
         let touchY = space.touches[0].clientY;
@@ -23,7 +31,7 @@ var pixel;
             }
         }
     });
-    window.addEventListener("touchend", function (_event) {
+    let endtouch = window.addEventListener("touchend", function (_event) {
         document.getElementById("circle").style.display = "none";
         let space = _event;
         if (!pixel.newGame) {
@@ -44,6 +52,7 @@ var pixel;
         }
     });
     function init() {
+        document.getElementById("speicher").addEventListener("click", speichern);
         pixel.canvas = document.getElementById("crc");
         //canvas = document.createElement("canvas");
         pixel.canvas.height = document.body.clientHeight;

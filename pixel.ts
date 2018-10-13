@@ -18,8 +18,18 @@ namespace pixel {
     export let greenValue: number;
     export let redValue: number;
 
+    let speicherwert: number = 1;
+    let storage = window.localStorage;
+    let speicherTest = window.localStorage.key(0);
 
-    window.addEventListener("touchstart", function (_event) {
+    function speichern():void {
+        speicherwert++;
+        document.getElementById("savecounter").textContent = speicherwert.toString();
+        console.log("gespeichert");
+    }
+
+
+    let starttouch = window.addEventListener("touchstart", function (_event) {
         let space: TouchEvent = <TouchEvent>_event;
         let touchX = space.touches[0].clientX;
         let touchY = space.touches[0].clientY;
@@ -34,7 +44,7 @@ namespace pixel {
         }
     });
 
-    window.addEventListener("touchend", function (_event) {
+    let endtouch = window.addEventListener("touchend", function (_event) {
         document.getElementById("circle").style.display = "none";
         let space: TouchEvent = <TouchEvent>_event;
         if(!newGame) {
@@ -57,6 +67,7 @@ namespace pixel {
     });
 
     function init(): void {
+        document.getElementById("speicher").addEventListener("click", speichern);
         canvas = <HTMLCanvasElement>document.getElementById("crc");
         //canvas = document.createElement("canvas");
         canvas.height = document.body.clientHeight;

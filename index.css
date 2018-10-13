@@ -20,3 +20,8 @@
     right: 50px;
     display: none;
 }
+
+#savecounter{
+    color: white;
+    font-size: 40px;
+}

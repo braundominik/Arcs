@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" style="background-color:black">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,16 +20,19 @@
 
 <body style="height:99vh; background-color:black">
 
-     <!-- Start of first page -->
-     <div data-role="page" id="foo">
+    <!-- Start of first page -->
+    <div data-role="page" id="foo">
         <a id="menubutton" href="#bar"><button>Menu</button></a>
         <p id="canvasp"><canvas width="100" height="100" id="crc"></p>
-            <img id="circle" src="circle.png">
+        <img id="circle" src="circle.png">
     </div><!-- /page -->
 
     <!-- Start of second page -->
     <div data-role="page" id="bar">
         <p><a href="#foo">Back to foo</a></p>
+        <p><button id="speicher">speichern</button></p>
+        <p id="savecounter">1</p>
+
     </div><!-- /page -->
 
 </body>
