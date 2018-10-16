@@ -1,5 +1,5 @@
 #menubutton{
-    display:none;
+    display:block;
     position:absolute;
     right: 0;
 
@@ -28,7 +28,7 @@
 
 #score{
     position: absolute;
-    display: none;
+    display: block;
     color: white;
     font-size: 30px;
     font-family: Arial;
