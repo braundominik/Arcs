@@ -36,3 +36,7 @@
     left: 10px;
     margin: 0 auto;
 }
+
+#foo{
+    min-height: 0 !important; 
+}
