@@ -1,11 +1,10 @@
 /*
-PIXEL
+ARCS
 Name: Braun Dominik
-Datum: 28.01.2018
+Datum: 13.10.2018
 */
 
 namespace pixel {
-
     window.addEventListener("load", init);
     export let crc: CanvasRenderingContext2D;
     export let canvas: HTMLCanvasElement;
@@ -19,23 +18,41 @@ namespace pixel {
     export let greenValue: number;
     export let redValue: number;
 
+    let scoreContent;
 
-    window.addEventListener("touchstart", function (_event) {
+    let scoreValue: number = 0;
+    let storage = window.localStorage;
+    let scoreStore = window.localStorage.key(0);
+
+    function speichern():void {
+        window.localStorage.setItem(scoreStore,scoreValue.toString());
+        console.log("gespeichert");
+    }
+
+
+    let starttouch = window.addEventListener("touchstart", function (_event) {
         let space: TouchEvent = <TouchEvent>_event;
+        let touchX = space.touches[0].clientX;
+        let touchY = space.touches[0].clientY;
+        document.getElementById("circle").style.top = (touchY-50).toString()+"px";
+        document.getElementById("circle").style.left = (touchX-50).toString()+"px";
+        document.getElementById("circle").style.display = "block";
         if(!newGame) {
             if (blockSpace == false) {
                 spaceDown = true;
+                animate();
             }
         }
     });
 
-    window.addEventListener("touchend", function (_event) {
+    let endtouch = window.addEventListener("touchend", function (_event) {
+        document.getElementById("circle").style.display = "none";
         let space: TouchEvent = <TouchEvent>_event;
         if(!newGame) {
                 spaceDown = false;
                 blockSpace = true;
-                console.log(mvArc.progress);
-                console.log(tmpArc.size);
+                //console.log(mvArc.progress);
+                //console.log(tmpArc.size);
         }
 
         else{
@@ -45,15 +62,26 @@ namespace pixel {
                 spaceDown = false;
                 blockSpace = false;
                 newGame = false;
+                animate();
             }
         }
     });
 
     function init(): void {
-        canvas = document.createElement("canvas");
+
+        scoreContent = document.getElementById("score");
+        scoreValue = Number(window.localStorage.getItem(scoreStore));
+        document.getElementById("score").textContent = "Score: "+scoreValue.toString();
+        document.getElementById("speicher").addEventListener("click", speichern);
+
+        document.getElementById("circle").style.top = (document.body.clientHeight/2-50).toString()+"px";
+        document.getElementById("circle").style.left = (document.body.clientWidth/2-50).toString()+"px";
+        
+        canvas = <HTMLCanvasElement>document.getElementById("crc");
+        //canvas = document.createElement("canvas");
         canvas.height = document.body.clientHeight;
         canvas.width = document.body.clientWidth;
-        document.body.appendChild(canvas);
+        //document.body.appendChild(canvas);
         crc = canvas.getContext("2d");
 
         tmpArc = new TemplateArc();
@@ -67,12 +95,14 @@ namespace pixel {
         tmpArc.draw();
         if(spaceDown) {
             mvArc.calc();
+            setTimeout(animate, 5);
         }
         if(blockSpace){
 
             //let accuracy:number;
             let accPercent: number;
-
+            let currentPercentage: number = ((mvArc.animateProgress-0.5)/(tmpArc.size-0.5));
+            //console.log(currentPercentage);
             //accuracy = (tmpArc.size - 0.5) - (mvArc.progress - 0.5);
             //accuracy = Math.sqrt(accuracy*accuracy);
             accPercent = (mvArc.progress - 0.5)/(tmpArc.size - 0.5);
@@ -81,24 +111,34 @@ namespace pixel {
 
             mvArc.animateDraw(accPercent);
 
-            let text: string = accPercent.toFixed(2).toString()+"%";
+            let text: string = (currentPercentage*100).toFixed(2).toString()+"%";
 
             crc.font = "10vw Arial";
             let textLength: TextMetrics = crc.measureText(text);
             let textPos: number = ((canvas.width/2) - (textLength.width/2));
 
-            if(accPercent>95&&accPercent<105){
-                crc.fillStyle = "green";
+            if(currentPercentage>0.95&&currentPercentage<1.05){
+                crc.fillStyle = "#27ae60";
             }
             else{
-                crc.fillStyle = "red";
+                crc.fillStyle = "#e74c3c";
             }
             crc.font = "10vw Arial";
             crc.fillText(text, textPos, (canvas.height/2)+(canvas.width*0.05));
             newGame = true;
-        }
 
-        setTimeout(animate, 10);
+            if (mvArc.animateProgress <= mvArc.progress) {
+                setTimeout(animate, 5);
+            }
+            else{
+                if (crc.fillStyle == "#27ae60"){
+                    scoreValue++;
+                    speichern();
+                    scoreContent.innerText = "Score:"+" "+scoreValue.toString();
+                }
+            }
+        }
+        console.log("in Process");
     }
 
 

@@ -1,5 +1,5 @@
 #menubutton{
-    
+    display:none;
     position:absolute;
     right: 0;
 
@@ -16,7 +16,23 @@
     filter: invert(1);
     width: 100px;
     position: absolute;
-    top:50px;
-    right: 50px;
+    top:50%;
+    left:50%;
+    display: block;
+}
+
+#savecounter{
+    color: white;
+    font-size: 40px;
+}
+
+#score{
+    position: absolute;
     display: none;
+    color: white;
+    font-size: 30px;
+    font-family: Arial;
+    top:10px;
+    left: 10px;
+    margin: 0 auto;
 }
