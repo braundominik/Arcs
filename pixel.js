@@ -1,7 +1,7 @@
 /*
-ARCS
+PIXEL
 Name: Braun Dominik
-Datum: 13.10.2018
+Datum: 28.01.2018
 */
 var pixel;
 (function (pixel) {
@@ -9,15 +9,7 @@ var pixel;
     pixel.spaceDown = false;
     pixel.blockSpace = false;
     pixel.newGame = false;
-    let scoreContent;
-    let scoreValue = 0;
-    let storage = window.localStorage;
-    let scoreStore = window.localStorage.key(0);
-    function speichern() {
-        window.localStorage.setItem(scoreStore, scoreValue.toString());
-        console.log("gespeichert");
-    }
-    let starttouch = window.addEventListener("touchstart", function (_event) {
+    window.addEventListener("touchstart", function (_event) {
         let space = _event;
         let touchX = space.touches[0].clientX;
         let touchY = space.touches[0].clientY;
@@ -31,7 +23,7 @@ var pixel;
             }
         }
     });
-    let endtouch = window.addEventListener("touchend", function (_event) {
+    window.addEventListener("touchend", function (_event) {
         document.getElementById("circle").style.display = "none";
         let space = _event;
         if (!pixel.newGame) {
@@ -52,12 +44,6 @@ var pixel;
         }
     });
     function init() {
-        scoreContent = document.getElementById("score");
-        scoreValue = Number(window.localStorage.getItem(scoreStore));
-        document.getElementById("score").textContent = "Score: " + scoreValue.toString();
-        document.getElementById("speicher").addEventListener("click", speichern);
-        document.getElementById("circle").style.top = (document.body.clientHeight / 2 - 50).toString() + "px";
-        document.getElementById("circle").style.left = (document.body.clientWidth / 2 - 50).toString() + "px";
         pixel.canvas = document.getElementById("crc");
         //canvas = document.createElement("canvas");
         pixel.canvas.height = document.body.clientHeight;
@@ -101,13 +87,7 @@ var pixel;
             if (pixel.mvArc.animateProgress <= pixel.mvArc.progress) {
                 setTimeout(animate, 5);
             }
-            else {
-                if (pixel.crc.fillStyle == "#27ae60") {
-                    scoreValue++;
-                    speichern();
-                    scoreContent.innerText = "Score:" + " " + scoreValue.toString();
-                }
-            }
+            //setTimeout(animate, 5);
         }
         console.log("in Process");
     }
