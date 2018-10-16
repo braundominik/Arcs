@@ -5,6 +5,7 @@ Datum: 28.01.2018
 */
 
 namespace pixel {
+
     window.addEventListener("load", init);
     export let crc: CanvasRenderingContext2D;
     export let canvas: HTMLCanvasElement;
@@ -21,27 +22,20 @@ namespace pixel {
 
     window.addEventListener("touchstart", function (_event) {
         let space: TouchEvent = <TouchEvent>_event;
-        let touchX = space.touches[0].clientX;
-        let touchY = space.touches[0].clientY;
-        document.getElementById("circle").style.top = (touchY-50).toString()+"px";
-        document.getElementById("circle").style.left = (touchX-50).toString()+"px";
-        document.getElementById("circle").style.display = "block";
         if(!newGame) {
             if (blockSpace == false) {
                 spaceDown = true;
-                animate();
             }
         }
     });
 
     window.addEventListener("touchend", function (_event) {
-        document.getElementById("circle").style.display = "none";
         let space: TouchEvent = <TouchEvent>_event;
         if(!newGame) {
                 spaceDown = false;
                 blockSpace = true;
-                //console.log(mvArc.progress);
-                //console.log(tmpArc.size);
+                console.log(mvArc.progress);
+                console.log(tmpArc.size);
         }
 
         else{
@@ -51,17 +45,15 @@ namespace pixel {
                 spaceDown = false;
                 blockSpace = false;
                 newGame = false;
-                animate();
             }
         }
     });
 
     function init(): void {
-        canvas = <HTMLCanvasElement>document.getElementById("crc");
-        //canvas = document.createElement("canvas");
+        canvas = document.createElement("canvas");
         canvas.height = document.body.clientHeight;
         canvas.width = document.body.clientWidth;
-        //document.body.appendChild(canvas);
+        document.body.appendChild(canvas);
         crc = canvas.getContext("2d");
 
         tmpArc = new TemplateArc();
@@ -75,14 +67,12 @@ namespace pixel {
         tmpArc.draw();
         if(spaceDown) {
             mvArc.calc();
-            setTimeout(animate, 5);
         }
         if(blockSpace){
 
             //let accuracy:number;
             let accPercent: number;
-            let currentPercentage: number = ((mvArc.animateProgress-0.5)/(tmpArc.size-0.5));
-            //console.log(currentPercentage);
+
             //accuracy = (tmpArc.size - 0.5) - (mvArc.progress - 0.5);
             //accuracy = Math.sqrt(accuracy*accuracy);
             accPercent = (mvArc.progress - 0.5)/(tmpArc.size - 0.5);
@@ -91,28 +81,24 @@ namespace pixel {
 
             mvArc.animateDraw(accPercent);
 
-            let text: string = (currentPercentage*100).toFixed(2).toString()+"%";
+            let text: string = accPercent.toFixed(2).toString()+"%";
 
             crc.font = "10vw Arial";
             let textLength: TextMetrics = crc.measureText(text);
             let textPos: number = ((canvas.width/2) - (textLength.width/2));
 
-            if(currentPercentage>0.95&&currentPercentage<1.05){
-                crc.fillStyle = "#27ae60";
+            if(accPercent>95&&accPercent<105){
+                crc.fillStyle = "green";
             }
             else{
-                crc.fillStyle = "#e74c3c";
+                crc.fillStyle = "red";
             }
             crc.font = "10vw Arial";
             crc.fillText(text, textPos, (canvas.height/2)+(canvas.width*0.05));
             newGame = true;
-
-            if (mvArc.animateProgress <= mvArc.progress) {
-                setTimeout(animate, 5);
-            }
-            //setTimeout(animate, 5);
         }
-        console.log("in Process");
+
+        setTimeout(animate, 10);
     }
 
 
